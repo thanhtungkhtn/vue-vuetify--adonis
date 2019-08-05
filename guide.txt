@@ -1,0 +1,19 @@
+**server
+- install api adonis: adonis new server --api-only
+npm install mysql --save
+++user
+localhost:3333/api/register
+{
+	"first_name": "tung1",
+	"last_name": "tung1",
+	"email": "tung1@gmail.com",
+	"password": "1234qwer"
+}
+++Project 
+adonis make:model Project -mc 
+
+**client
+npm install @vue/cli -g
+vue create my-app
+vue add vuetify
+npm run lint
