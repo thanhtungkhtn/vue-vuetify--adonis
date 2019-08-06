@@ -26,17 +26,16 @@ class UserController {
       password
     })
 
-    // return response.send({
-    //   message: 'user has been created'
-    // })
-
     //await auth.login(user); // not jwt
 
     //return this.login(...arguments);
 
-    return response.json({
-      "user": user,
-      "message": 'user has been created'
+    // return response.json({
+    //   "user": user,
+    //   "message": 'user has been created'
+    // })
+    return response.send({
+      message: 'user has been created'
     })
   }
 
@@ -46,10 +45,12 @@ class UserController {
     response
   }) {
     //let {email, password} = request.all();
-    const email = request.input("email")
-    const password = request.input("password");
+    // const email = request.input("email")
+    // const password = request.input("password");
+    const {email, password} = request.only(['email', 'password'])
+
     try {
-      if (await auth.attempt(email, password)) {
+      if (email && password) {
 
         console.log(email, password)
 
@@ -58,11 +59,11 @@ class UserController {
         // Object.assign(user, accessToken)
         // return response.json(user)
 
-        const token = await auth.attempt(
-          request.input('email'),
-          request.input('password')
-        )
-        //const token = await auth.attempt(email, password)
+        // const token = await auth.attempt(
+        //   request.input('email'),
+        //   request.input('password')
+        // )
+        const token = await auth.attempt(email, password)
 
         // return response.json({
         //   status: 'success',
@@ -71,7 +72,8 @@ class UserController {
         //   //  "user": user,
         //   // "access_token": accessToken
         // })
-        return token;
+        //return response.json(token);
+         return token;
       }
 
     } catch (e) {
@@ -95,7 +97,7 @@ class UserController {
 
     //return await user.projects().fetch();
 
-    return response.json(user)
+    return response.json(res)
   }
 }
 

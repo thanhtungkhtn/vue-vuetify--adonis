@@ -27,12 +27,16 @@ Route.get('/', () => {
 
 //Route.on('/signup').render('auth.signup'); // render auth/signup.edge
 //Route.post('/signup', 'UserController.create').validator('Register');
+Route.group(() => {
+  Route.post('/auth/login', 'UserController.login').validator('Login');
+  Route.post('/auth/register', 'UserController.create').validator('Register');
+  Route.get('/getuser/:id', 'UserController.show')
+}).prefix('/api')
 
-Route.post('api/auth/login', 'UserController.login').validator('Login');
-Route.post('api/auth/register', 'UserController.create').validator('Register');
+// Route.post('/api/auth/login', 'UserController.login').validator('Login');
+// Route.post('/api/auth/register', 'UserController.create').validator('Register');
 
 Route.group(() => {
-  Route.get('getuser/:id', 'UserController.show')
 
   Route.patch('contacts/:id', 'ContactController.update').validator('Contact')
   Route.delete('contacts/:id', 'ContactController.destroy')
