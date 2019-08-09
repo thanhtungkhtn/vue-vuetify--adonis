@@ -4,6 +4,7 @@ class Register {
   get rules() {
     return {
       // validation rules
+      'name': 'required|unique:users',
       'username': 'required|unique:users',
       'email': 'required|email|unique:users,email',
       'password': 'required'

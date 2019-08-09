@@ -6,3 +6,4 @@ npm install jwt-decode --save
 
 // access localhost /////
 config/cors.js true origin
+npm i @adonisjs/websocket-client

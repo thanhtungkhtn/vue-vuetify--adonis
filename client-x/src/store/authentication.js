@@ -7,6 +7,7 @@ import HTTP from '../http';
 export default {
   namespaced: true,
   state: {
+    registerName: 'examle',
     registerUsername: 'example',
     registerEmail: 'example@gmail.com',
     registerPassword: '123456',
@@ -23,7 +24,8 @@ export default {
     },
     register({ commit, state }) {
       commit('setRegisterError', null);
-      return HTTP().post('/auth/register', {
+      return HTTP().post('/auth/signup', {
+        name: state.registerName,
         username: state.registerUsername,
         email: state.registerEmail,
         password: state.registerPassword,
@@ -63,6 +65,9 @@ export default {
     },
     setRegisterError(state, error) {
       state.registerError = error;
+    },
+    setRegisterName(state, name) {
+      state.registerName = name;
     },
     setRegisterUsername(state, username) {
       state.registerUsername = username;

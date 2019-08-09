@@ -1,0 +1,8 @@
+adonis make:hook User
+adonis make:controller User --type=http
+adonis make:migration followers
+adonis make:model Favorite -mc
+adonis make:model Reply -mc
+adonis make:model Tweet -mc
+adonis install @adonisjs/websocket
+adonis make:controller Chat --type=ws

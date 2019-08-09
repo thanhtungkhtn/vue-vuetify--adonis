@@ -7,6 +7,10 @@
       <table class="table col-md-6 mx-auto">
         <tbody>
           <tr>
+            <td>Name</td>
+            <td>{{name}}</td>
+          </tr>
+          <tr>
             <td>User Name</td>
             <td>{{username}}</td>
           </tr>
@@ -29,6 +33,7 @@ export default {
     const decoded = jwtDecode(token)
     return {
       uid: decoded.uid,
+      name: '',
       username: '',
       email: ''
     }
@@ -36,6 +41,7 @@ export default {
   mounted () {
     axios.get(`/api/getuser/${this.uid}`
     ).then((res) => {
+      this.name = res.data.name
       this.username = res.data.username
       this.email = res.data.email
     }).catch((err) => {

@@ -25,16 +25,14 @@ Route.get('/', () => {
 })
 
 
-//Route.on('/signup').render('auth.signup'); // render auth/signup.edge
-//Route.post('/signup', 'UserController.create').validator('Register');
 Route.group(() => {
-  Route.post('/auth/login', 'UserController.login').validator('Login');
-  Route.post('/auth/register', 'UserController.create').validator('Register');
-  Route.get('/getuser/:id', 'UserController.show')
-}).prefix('/api')
+  // user signup
+  Route.post('/auth/signup', 'AuthController.signup').validator('Register');
+  // user login
+  Route.post('/auth/login', 'AuthController.login').validator('Login');
 
-// Route.post('/api/auth/login', 'UserController.login').validator('Login');
-// Route.post('/api/auth/register', 'UserController.create').validator('Register');
+  Route.get('/getuser/:id', 'AuthController.show')
+}).prefix('/api')
 
 Route.group(() => {
 
@@ -55,3 +53,40 @@ Route.group(() => {
 
 }).prefix('api').middleware('auth')
 
+// user account
+Route.group(() => {
+  Route.get('/me', 'UserController.me')
+  Route.put('/update_profile', 'UserController.updateProfile')
+  Route.put('/change_password', 'UserController.changePassword')
+})
+  .prefix('account')
+  .middleware(['auth:jwt'])
+
+// User profile
+Route.get(':username', 'UserController.showProfile')
+
+Route.group(() => {
+  Route.get('/timeline', 'UserController.timeline')
+  Route.post('/follow', 'UserController.follow')
+  Route.get('/users_to_follow', 'UserController.usersToFollow')
+  Route.delete('/unfollow/:id', 'UserController.unFollow')
+})
+  .prefix('users')
+  .middleware(['auth:jwt'])
+
+Route.post('/tweet', 'TweetController.tweet').middleware(['auth:jwt'])
+Route.get('tweets/:id', 'TweetController.show')
+Route.post('tweets/reply/:id', 'TweetController.reply').middleware(['auth:jwt']);
+// Delete tweet
+Route.delete('tweets/destroy/:id', 'TweetController.destroy').middleware(['auth:jwt'])
+
+
+// tweet reactions
+Route.group(() => {
+  // favorite tweet
+  Route.post('/create', 'FavoriteController.favorite')
+  // unfavorite tweet
+  Route.delete('/destroy/:id', 'FavoriteController.unFavorite')
+})
+  .prefix('favorites')
+  .middleware(['auth:jwt'])

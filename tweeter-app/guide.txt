@@ -1,0 +1,4 @@
+vue init webpack tweeter-app
+npm install axios --save
+npm install vee-validate --save
+npm install moment --save

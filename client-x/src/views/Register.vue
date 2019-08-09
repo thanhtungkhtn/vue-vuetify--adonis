@@ -10,6 +10,18 @@
           >
 
             <v-text-field
+              :rules="nameRules"
+              label="Name"
+              :value="registerName"
+              @input="setRegisterName"
+              clearable
+              loading
+              counter
+              maxlength="20"
+              required
+            ></v-text-field>
+
+            <v-text-field
               :rules="usernameRules"
               label="Username"
               :value="registerUsername"
@@ -90,6 +102,7 @@ export default {
 
   computed: {
     ...mapState('authentication', [
+      'registerName',
       'registerUsername',
       'registerEmail',
       'registerPassword',
@@ -99,6 +112,7 @@ export default {
 
   methods: {
     ...mapMutations('authentication', [
+      'setRegisterName',
       'setRegisterUsername',
       'setRegisterEmail',
       'setRegisterPassword',
